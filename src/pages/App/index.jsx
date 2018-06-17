@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Home, NotFound } from '../index';
+import { Home, NotFound, About } from '../index';
 
 class App extends React.Component {
   render() {
@@ -11,6 +11,7 @@ class App extends React.Component {
             // Define all your routes here
           }
           <Route exact path="/" component={Home} />
+          <Route exact path="/About" component={About} />
           <Route component={NotFound} />
         </Switch>
       </div>
