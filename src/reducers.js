@@ -1,12 +1,10 @@
 /* eslint import/no-named-default: off */
 
 import { combineReducers } from 'redux';
-import { homeReducer } from './pages/Home/reducer'
+import { mainReducer } from './pages/Main/reducer'
 
-const dummyReducer = (store = {}) => store;
 
 export const reducers = combineReducers({
-  dummy: dummyReducer,
-  home: homeReducer,
+  main: mainReducer
   // place other reducers here,
 });
