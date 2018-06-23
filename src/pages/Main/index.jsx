@@ -1,8 +1,10 @@
 import React from 'react'
 import style from './index.css'
-import { Header, MainContent, Footer, Card, PopupWindow, Button } from 'storybook-project/dist';
+import { Header, MainContent, Footer, Card, PopupWindow, Button, Navigation } from 'storybook-project/dist';
 import { connect } from 'react-redux';
-import { addFavouriteBeer, removeFavouriteBeer, showPopupBeer, removePopupBeer } from './action.js'
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+import { addFavouriteBeer, removeFavouriteBeer, showPopupBeer, removePopupBeer, changeBeerInCart } from './action.js'
 import beers from '../../../assets/beers.js'
 
 
@@ -14,33 +16,35 @@ class Main extends React.Component
         this.toggleFavouriteBeer = this.toggleFavouriteBeer.bind(this)
         this.setPopupBeer = this.setPopupBeer.bind(this)
         this.removePopupBeer = this.removePopupBeer.bind(this)
+        this.addBeerToCart = this.addBeerToCart.bind(this)
     }
 
     toggleFavouriteBeer(beerId)
     {
         if(this.props.favouriteBeers.includes(beerId))
         {
-            this.props.removeFavouriteBeer(beerId);
+            this.props.removeFavouriteBeer(beerId)  
         }
         else
         {
-            this.props.addFavouriteBeer(beerId);
+            this.props.addFavouriteBeer(beerId)
         }
     }
 
     setPopupBeer(beer)
     {
-        this.props.showPopupBeer(beer);
+        this.props.showPopupBeer(beer)
     }
 
     removePopupBeer()
     {
-        this.props.removePopupBeer();
+        this.props.removePopupBeer()
     }
 
     addBeerToCart(beerId)
     {
-
+        this.props.changeBeerInCart(beerId, 1)
+        // toast("Added one beer to cart")
     }
 
     render()
@@ -53,6 +57,7 @@ class Main extends React.Component
 				tagline={beer.tagline}
                 onFavourite= {() =>{this.toggleFavouriteBeer(beer.id)}}
                 onInfo={() => this.setPopupBeer(beer)}
+                onPlus={() => this.addBeerToCart(beer.id)}
                 isFavourite = { this.props.favouriteBeers.includes(beer.id) === true ? "true" : "false"}
             >
 			</Card>
@@ -92,25 +97,46 @@ class Main extends React.Component
         :
         undefined
 
+        const beerCount = this.props.beerInCart.reduce((a, b) => a + b.amount, 0);
         const div = (
             <div>
                 <Header title="Duff Beers" showLogo="true"/>
+                <Navigation
+                    links =
+                    {
+                        [
+                            {
+                                link: "Cart",
+                                title: "My Cart (" + beerCount + ")"
+                            },
+                            {
+                                link: "About",
+                                title: "About"
+                            },
+                        ]
+                    }
+                />
                 <MainContent>
                     {cards}
                 </MainContent>
                 <Footer>
                     Jurica Adamek 2018
                 </Footer>
-                {popup}
+                <div className={style.popup}>
+                    {popup}
+                </div>
+                {/* <ToastContainer /> */}
             </div>
         )
+
         return div;
     }
 }
 
 const mapStateToProps = state =>({
     favouriteBeers : state.main.favouriteBeers,
-    popupBeer: state.main.popupBeer
+    popupBeer: state.main.popupBeer,
+    beerInCart: state.main.beerInCart
 })
 
 const mapDispatchProps = dispatch =>({
@@ -118,6 +144,7 @@ const mapDispatchProps = dispatch =>({
     removeFavouriteBeer : (beerId) => dispatch(removeFavouriteBeer(beerId)),
     showPopupBeer: (beer) => dispatch(showPopupBeer(beer)),
     removePopupBeer: () => dispatch(removePopupBeer()),
+    changeBeerInCart: (beerId, amount) => dispatch(changeBeerInCart(beerId, amount))
 })
 
 export default connect(

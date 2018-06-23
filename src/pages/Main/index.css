@@ -31,3 +31,7 @@ body
 .popupButton{
     margin: 10px;
 }
+
+.popup{
+    width: 200px;
+}
