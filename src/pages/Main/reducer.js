@@ -1,4 +1,4 @@
-export const mainReducer = (state = {favouriteBeers: [], popupBeer: {}, beerInCart: []}, action) =>
+export const mainReducer = (state = {favouriteBeers: [], popupBeer: {}, beerInCart: [], showMode: "All"}, action) =>
 {
     switch(action.type)
     {
@@ -21,6 +21,11 @@ export const mainReducer = (state = {favouriteBeers: [], popupBeer: {}, beerInCa
             return {
                 ...state,
                 popupBeer: {}
+            }
+        case "CHANGE_SHOW_MODE":
+            return{
+                ...state,
+                showMode: action.mode
             }
         case "CHANGE_BEER_IN_CART":
 

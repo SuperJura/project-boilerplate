@@ -1,5 +1,6 @@
 import React from 'react';
-import { Header, MainContent, Footer, Navigation } from 'storybook-project/dist';
+import { Header, MainContent, Navigation } from 'storybook-project/dist';
+import FooterLinks from '../../Components/FooterLinks'
 
 export default class About extends React.Component
 {
@@ -31,9 +32,7 @@ export default class About extends React.Component
                         Made with React and Redux!
                     </p>
                 </MainContent>
-                <Footer>
-                    Jurica Adamek 2018
-                </Footer>
+                <FooterLinks/>
             </div>
         )
     }

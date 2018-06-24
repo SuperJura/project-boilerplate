@@ -1,12 +1,12 @@
 import React from 'react'
 import style from './index.css'
-import { Header, MainContent, Footer, Card, PopupWindow, Button, Navigation } from 'storybook-project/dist';
+import { Header, MainContent, Card, PopupWindow, Button, Navigation } from 'storybook-project/dist';
+import FooterLinks from '../../Components/FooterLinks'
 import { connect } from 'react-redux';
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
-import { addFavouriteBeer, removeFavouriteBeer, showPopupBeer, removePopupBeer, changeBeerInCart } from './action.js'
+import { addFavouriteBeer, removeFavouriteBeer, showPopupBeer, removePopupBeer, changeBeerInCart, changeShowMode } from './action.js'
 import beers from '../../../assets/beers.js'
-
 
 class Main extends React.Component
 {
@@ -17,6 +17,7 @@ class Main extends React.Component
         this.setPopupBeer = this.setPopupBeer.bind(this)
         this.removePopupBeer = this.removePopupBeer.bind(this)
         this.addBeerToCart = this.addBeerToCart.bind(this)
+        this.changeShowToNewMode = this.changeShowToNewMode.bind(this)
     }
 
     toggleFavouriteBeer(beerId)
@@ -47,9 +48,23 @@ class Main extends React.Component
         // toast("Added one beer to cart")
     }
 
+    changeShowToNewMode(mode)
+    {
+        this.props.changeShowMode(mode)
+    }
+
     render()
     {
-		const cards = beers.map(beer => 
+        var beersToDisplay = beers
+        if(this.props.showMode === "Favourite")
+        {
+            if(this.props.favouriteBeers !== undefined)
+            {
+                beersToDisplay = beers.filter((obj) => { return this.props.favouriteBeers.includes(obj.id); });
+            }
+        }
+
+		const cards = beersToDisplay.map(beer => 
 			<Card
 				key={beer.id}
 				imgUrl={beer.image_url}
@@ -100,28 +115,34 @@ class Main extends React.Component
         const beerCount = this.props.beerInCart.reduce((a, b) => a + b.amount, 0);
         const div = (
             <div>
-                <Header title="Duff Beers" showLogo="true"/>
+                <Header title='Duff Beers' showLogo='true'/>
                 <Navigation
                     links =
                     {
                         [
                             {
-                                link: "Cart",
+                                link: 'Cart',
                                 title: "My Cart (" + beerCount + ")"
                             },
                             {
-                                link: "About",
-                                title: "About"
+                                link: 'About',
+                                title: 'About'
                             },
                         ]
                     }
                 />
                 <MainContent>
+                    <div>
+                        <Button onClick={() => this.changeShowToNewMode('All')}>
+                            Show all beers
+                        </Button>
+                        <Button onClick={() => this.changeShowToNewMode('Favourite')}>
+                            Show just Favourites beers
+                        </Button>
+                    </div>
                     {cards}
                 </MainContent>
-                <Footer>
-                    Jurica Adamek 2018
-                </Footer>
+                <FooterLinks/>
                 <div className={style.popup}>
                     {popup}
                 </div>
@@ -136,7 +157,8 @@ class Main extends React.Component
 const mapStateToProps = state =>({
     favouriteBeers : state.main.favouriteBeers,
     popupBeer: state.main.popupBeer,
-    beerInCart: state.main.beerInCart
+    beerInCart: state.main.beerInCart,
+    showMode: state.main.showMode
 })
 
 const mapDispatchProps = dispatch =>({
@@ -144,7 +166,8 @@ const mapDispatchProps = dispatch =>({
     removeFavouriteBeer : (beerId) => dispatch(removeFavouriteBeer(beerId)),
     showPopupBeer: (beer) => dispatch(showPopupBeer(beer)),
     removePopupBeer: () => dispatch(removePopupBeer()),
-    changeBeerInCart: (beerId, amount) => dispatch(changeBeerInCart(beerId, amount))
+    changeBeerInCart: (beerId, amount) => dispatch(changeBeerInCart(beerId, amount)),
+    changeShowMode: (mode) => dispatch(changeShowMode(mode))
 })
 
 export default connect(

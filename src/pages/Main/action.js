@@ -17,6 +17,11 @@ export const removePopupBeer = () =>({
     type: 'REMOVE_POPUP_BEER'
 });
 
+export const changeShowMode = (mode) =>({
+    type: 'CHANGE_SHOW_MODE',
+    mode
+})
+
 export const changeBeerInCart = (beerId, amount) =>({
     type: 'CHANGE_BEER_IN_CART',
     beerId,
