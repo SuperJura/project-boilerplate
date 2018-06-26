@@ -1,7 +1,6 @@
 kaj je s cssom od ReactToastify
-kak dodati css klasu na componentu koja je iz storybooka da se nadoda na postojecu css klasu
+kak dodati css klasu na componentu koja je iz storybooka da se nadoda na postojecu css klasu (gumb margin)
 kak dodati font
-sto zapravo treba napraviti s Table komponentom
 zasto ne radi slika u headeru
 dali je ok raditi nove komponente u projektu koji su kao intermediate izmedu storybooka i projekta
     ako da

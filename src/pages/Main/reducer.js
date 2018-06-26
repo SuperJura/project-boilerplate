@@ -31,6 +31,8 @@ export const mainReducer = (state = {favouriteBeers: [], popupBeer: {}, beerInCa
 
             const currentBeerInCart = state.beerInCart.slice();
             const beerIndex = currentBeerInCart.map(e => e.beerId).indexOf(action.beerId);
+
+            if(action.amount === 0) action.amount = -currentBeerInCart[beerIndex].amount
             
             if(beerIndex === -1)
             {

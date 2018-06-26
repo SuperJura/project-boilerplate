@@ -3,10 +3,25 @@ import style from './index.css'
 import { Header, MainContent, Navigation, Table } from 'storybook-project/dist';
 import FooterLinks from '../../Components/FooterLinks'
 import { connect } from 'react-redux';
+import { changeBeerInCart }  from '../Main/action.js'
 import beers from '../../../assets/beers.js'
 
 class Cart extends React.Component
 {
+	constructor(props)
+	{
+		super(props)
+
+		this.changeBeersInTable = this.changeBeersInTable.bind(this)
+	}
+
+	changeBeersInTable(amount, rowIndex)
+	{
+		const beerId = this.props.beerInCart[rowIndex].beerId;
+		
+        this.props.changeBeerInCart(beerId, +amount)
+	}
+
 	render()
 	{
 		const tableValues = []
@@ -35,7 +50,7 @@ class Cart extends React.Component
 					}
 				/>
 				<MainContent>
-					<Table headers={["Beer name", "Count"]} values={tableValues} onControlClick={(amount) => console.log(amount)}/>
+					<Table headers={["Beer name", "Count"]} values={tableValues} onControlClick={(amount, rowIndex) => {this.changeBeersInTable(amount, rowIndex)}}/>
 				</MainContent>
 				<FooterLinks/>
 			</div>
@@ -50,6 +65,7 @@ const mapStateToProps = state =>({
 })
 
 const mapDispatchProps = dispatch =>({
+    changeBeerInCart: (beerId, amount) => dispatch(changeBeerInCart(beerId, amount)),
 })
 
 export default connect(
