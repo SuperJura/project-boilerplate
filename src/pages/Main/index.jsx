@@ -134,10 +134,11 @@ class Main extends React.Component
                 <MainContent>
                     <div>
                         <Button onClick={() => this.changeShowToNewMode('All')}>
-                            Show all beers
+                            {"Show all beers (" + beers.length + ")"} 
                         </Button>
+                        
                         <Button onClick={() => this.changeShowToNewMode('Favourite')}>
-                            Show just Favourites beers
+                            {"Show just Favourites beers (" + (this.props.favouriteBeers === undefined ? 0 : this.props.favouriteBeers.length) + ")"}
                         </Button>
                     </div>
                     {cards}

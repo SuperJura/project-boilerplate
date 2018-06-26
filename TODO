@@ -4,5 +4,7 @@ kak dodati font
 sto zapravo treba napraviti s Table komponentom
 zasto ne radi slika u headeru
 dali je ok raditi nove komponente u projektu koji su kao intermediate izmedu storybooka i projekta
-    ako da, staviti Popup iz maina u neki intermediate
+    ako da
+        staviti Popup iz maina u neki intermediate
+        mozda cijeli layout, al to je mozda previse copypastea
     ako ne, maknuti FooterLinks
