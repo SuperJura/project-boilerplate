@@ -5,6 +5,7 @@ import FooterLinks from '../../Components/FooterLinks'
 import { connect } from 'react-redux';
 import { changeBeerInCart }  from '../Main/action.js'
 import beers from '../../../assets/beers.js'
+import logo from '../../../assets/duff.png'
 
 class Cart extends React.Component
 {
@@ -19,7 +20,7 @@ class Cart extends React.Component
 	{
 		const beerId = this.props.beerInCart[rowIndex].beerId;
 		
-        this.props.changeBeerInCart(beerId, +amount)
+        this.props.changeBeerInCart(beerId, amount)
 	}
 
 	render()
@@ -33,7 +34,7 @@ class Cart extends React.Component
 
 		const div = (
 			<div>
-				<Header title='My Cart'/>
+				<Header title='My Cart' logo={logo}/>
 				<Navigation
 					links =
 					{

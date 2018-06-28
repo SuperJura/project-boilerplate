@@ -1,7 +1,6 @@
 kaj je s cssom od ReactToastify
+font ne radi na gubmu
 kak dodati css klasu na componentu koja je iz storybooka da se nadoda na postojecu css klasu (gumb margin)
-kak dodati font
-zasto ne radi slika u headeru
 dali je ok raditi nove komponente u projektu koji su kao intermediate izmedu storybooka i projekta
     ako da
         staviti Popup iz maina u neki intermediate

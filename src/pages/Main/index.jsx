@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 // import 'react-toastify/dist/ReactToastify.css';
 import { addFavouriteBeer, removeFavouriteBeer, showPopupBeer, removePopupBeer, changeBeerInCart, changeShowMode } from './action.js'
 import beers from '../../../assets/beers.js'
+import logo from '../../../assets/duff.png'
 
 class Main extends React.Component
 {
@@ -115,7 +116,7 @@ class Main extends React.Component
         const beerCount = this.props.beerInCart.reduce((a, b) => a + b.amount, 0);
         const div = (
             <div>
-                <Header title='Duff Beers' showLogo='true'/>
+                <Header title='Duff Beers' logo={logo}/>
                 <Navigation
                     links =
                     {
