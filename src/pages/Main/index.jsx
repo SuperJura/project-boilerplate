@@ -134,7 +134,7 @@ class Main extends React.Component
                 />
                 <MainContent>
                     <div>
-                        <Button onClick={() => this.changeShowToNewMode('All')}>
+                        <Button onClick={() => this.changeShowToNewMode('All')} classes={style.button}>
                             {"Show all beers (" + beers.length + ")"} 
                         </Button>
                         

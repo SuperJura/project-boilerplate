@@ -7,3 +7,7 @@ html {
   font-family: 'Simpsons';
   margin: 15px;
 }
+
+input[type=button] {
+  font-family: 'Simpsons';
+}

@@ -35,3 +35,7 @@ body
 .popup{
     width: 200px;
 }
+
+.button{
+    margin: 15px;
+}
