@@ -1,6 +1,0 @@
-kak dodati css klasu na componentu koja je iz storybooka da se nadoda na postojecu css klasu (gumb margin)
-dali je ok raditi nove komponente u projektu koji su kao intermediate izmedu storybooka i projekta
-    ako da
-        staviti Popup iz maina u neki intermediate
-        mozda cijeli layout, al to je mozda previse copypastea
-    ako ne, maknuti FooterLinks

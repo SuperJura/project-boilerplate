@@ -3,8 +3,7 @@ import style from './index.css'
 import { Header, MainContent, Card, PopupWindow, Button, Navigation } from 'storybook-project/dist';
 import FooterLinks from '../../Components/FooterLinks'
 import { connect } from 'react-redux';
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import BeerPopup from '../../Components/BeerPopup'
 import { addFavouriteBeer, removeFavouriteBeer, showPopupBeer, removePopupBeer, changeBeerInCart, changeShowMode } from './action.js'
 import beers from '../../../assets/beers.js'
 import logo from '../../../assets/duff.png'
@@ -46,7 +45,6 @@ class Main extends React.Component
     addBeerToCart(beerId)
     {
         this.props.changeBeerInCart(beerId, 1)
-        // toast("Added one beer to cart")
     }
 
     changeShowToNewMode(mode)
@@ -81,35 +79,11 @@ class Main extends React.Component
 
         const popupBeer = this.props.popupBeer
         const popup = Object.keys(popupBeer).length !== 0 ? 
-        <PopupWindow
-            onClose={this.removePopupBeer}
-            tooltip={"date: " + popupBeer.first_brewed + "\nby: " + popupBeer.contributed_by}
-        >
-            <h2>{popupBeer.name}</h2>
-            <hr/>
-            <img src={popupBeer.image_url} className={style.popupImage}/>
-            <div className={style.popupParagraph}>
-                <p>
-                    {popupBeer.description}
-                </p>
-                <p>
-                    {popupBeer.brewers_tips}
-                </p>
-            </div>
-            <div className={style.clear_floatd}/>
-            <hr/>
-            <div className={style.popupButtonConteiner}>
-                <Button onClick={this.removePopupBeer}>
-                    Close
-                </Button>
-                <Button onClick={() => {this.addBeerToCart(popupBeer.id)}}>
-                    Add to Cart
-                </Button>
-                <Button onClick={() =>{this.toggleFavouriteBeer(popupBeer.id)}}>
-                    Toggle Favourite
-                </Button>
-            </div>
-        </PopupWindow>
+        <BeerPopup popupBeer={popupBeer} 
+            onClose={this.removePopupBeer} 
+            addBeerToCart={this.addBeerToCart} 
+            toggleFavouriteBeer={this.toggleFavouriteBeer}
+        />
         :
         undefined
 
@@ -138,7 +112,7 @@ class Main extends React.Component
                             {"Show all beers (" + beers.length + ")"} 
                         </Button>
                         
-                        <Button onClick={() => this.changeShowToNewMode('Favourite')}>
+                        <Button onClick={() => this.changeShowToNewMode('Favourite')} classes={style.button}>
                             {"Show just Favourites beers (" + (this.props.favouriteBeers === undefined ? 0 : this.props.favouriteBeers.length) + ")"}
                         </Button>
                     </div>
@@ -148,7 +122,6 @@ class Main extends React.Component
                 <div className={style.popup}>
                     {popup}
                 </div>
-                {/* <ToastContainer /> */}
             </div>
         )
 
